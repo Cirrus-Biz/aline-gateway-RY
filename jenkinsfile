@@ -18,23 +18,23 @@ pipeline {
                 sh 'mvn test -Dmaven.test.failure.ignore=true'
             }
         }
-        stage('Maven Verify') {
-            steps {
-                sh 'mvn verify -Dmaven.test.failure.ignore=true'
-            }
-        }
-        stage('SonarQube analysis') {
-            steps {
-                withSonarQubeEnv(installationName: 'sonarqube') {
-                    sh 'mvn sonar:sonar'
-                }
-            } 
-        }
-        stage("Quality gate") {
-            steps {
-                waitForQualityGate abortPipeline: true
-            }
-        }
+        // stage('Maven Verify') {
+        //     steps {
+        //         sh 'mvn verify -Dmaven.test.failure.ignore=true'
+        //     }
+        // }
+        // stage('SonarQube analysis') {
+        //     steps {
+        //         withSonarQubeEnv(installationName: 'sonarqube') {
+        //             sh 'mvn sonar:sonar'
+        //         }
+        //     } 
+        // }
+        // stage("Quality gate") {
+        //     steps {
+        //         waitForQualityGate abortPipeline: true
+        //     }
+        // }
         stage('Package') { 
             steps {
                 sh 'mvn -Dmaven.test.failure.ignore=true clean package' 
