@@ -96,14 +96,12 @@ pipeline {
         always {
             sh 'docker context use default'
             sh 'docker context rm ${AWS_PROFILE}'
-            sh "docker rmi $env.AWS_ECR_REGISTRY/$registryEndpoint:${GIT_COMMIT}"
-            sh "docker rmi $env.AWS_ECR_REGISTRY/$registryEndpoint:latest"
             sh 'sudo docker system prune --all -f'
             sh 'sudo docker logout'
             sh 'sudo rm ./.env'
             sh 'sudo rm -rf ~/.aws/'
             sh 'sudo rm -rf ~/jenkins/workspace/${JOB_NAME}/*'
-            sh 'sudo rm -rf ~/jenkins/workspace/${JOB_NAME}/.git'
+            sh 'sudo rm -rf ~/jenkins/workspace/${JOB_NAME}/.git*'
         }
     }
 }
